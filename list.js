@@ -1,67 +1,141 @@
 class List {
-  constructor(
-    clear,
-    find,
-    toString,
-    insert,
-    front,
-    end,
-    prev,
-    next,
-    length,
-    currPos,
-    moveTo,
-    getElement,
-    contains
-  ) {
+  constructor() {
     this.listSize = 0;
     this.pos = 0;
     this.dataStore = []; // initializes an empty array to store list elements
-    this.clear = clear;
-    this.find = find;
-    this.toString = toString;
-    this.insert = insert;
-    this.front = front;
-    this.end = end;
-    this.prev = prev;
-    this.next = next;
-    this.length = length;
-    this.currPos = currPos;
-    this.moveTo = moveTo;
-    this.getElement = getElement;
-    this.contains = contains;
   }
   append(element) {
     this.dataStore[this.listSize++] = element;
-   return this.dataStore
+    return this.dataStore;
   }
 
-  find(element){
-    for (let i = 0; i < this.dataStore.length; i ++){
-      if(element == this.dataStore[i]){
-        return i
+  find(element) {
+    for (let i = 0; i < this.dataStore.length; i++) {
+      if (element == this.dataStore[i]) {
+        return i;
       }
-    
     }
-    return -1
+    return -1;
   }
 
-
-remove(element) {
-  foundAt = find(element)
-  if(foundAt > -1) {
-    this.dataStore.splice(foundAt, 1)
-  
+  remove(element) {
+    var foundAt = find(element);
+    if (foundAt > -1) {
+      this.dataStore.splice(foundAt, 1);
+      --this.listSize;
+      return true;
+    }
+    return false;
   }
-}
+
+  length() {
+    return this.listSize;
+  }
+
+  toString() {
+    return this.dataStore;
+  }
+
+  insertIndex(element, position) {
+    for (let i = 0; i < this.dataStore.length; i++) {
+      if (position == i) {
+        this.dataStore.splice(i + 1, 0, element);
+        ++this.listSize;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  insertAfter(element, number) {
+    let after = find(number);
+    if (after > -1) {
+      this.dataStore.splice(after + 1, 0, element);
+      ++this.listSize;
+    }
+    return false;
+  }
+  clear() {
+    delete this.dataStore;
+    this.dataStore = [];
+    this.listSize = this.pos = 0;
+    return this.dataStore;
+  }
+  contains(element) {
+    for (let i = 0; i < this.dataStore.length; i++) {
+      if (element == this.dataStore[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  front() {
+    this.pos = 0;
+  }
+
+  end() {
+    this.pos = this.listSize - 1;
+  }
+
+  prev() {
+    if (this.pos > 0) {
+      --this.pos;
+    }
+  }
+
+  next() {
+    if (this.pos < this.listSize - 1) {
+      ++this.pos;
+    }
+  }
+  currPos() {
+    return this.pos;
+  }
+  moveTo(position) {
+    this.pos = position;
+  }
+  getElement() {
+    return this.dataStore[this.pos];
+  }
   //////////
 }
 
-var link = new List()
+var link = new List();
+var names = new List();
 
-console.log(link.append(10), "link")
+console.log(link.append(10), "link");
+console.log(link.append(13), "link");
+console.log(link.remove(10), "removed");
+console.log(link.dataStore, "store");
+console.log(link.append(33), "link");
+console.log(link.length(), "size");
+console.log(link.toString(), "view store");
+console.log(link.insertIndex(40, 1), "insert");
+console.log(link.insertAfter(45, 33), "insert");
+console.log(link.dataStore, "insert store");
+// console.log(link.clear(), "clear");
+console.log(link.contains(13), "contains");
 
+names.append("Clayton");
+names.append("Raymond");
+names.append("Cynthia");
+names.append("Jennifer");
+names.append("Bryan");
+names.append("Danny");
 
+names.front();
+console.log(names.getElement(), "front");
+names.next();
+console.log(names.getElement(), "next");
+names.next();
+console.log(names.getElement(), "next");
+
+// for(names.front(); names.currPos() < names.length(); names.next()){
+//   console.log(names.getElement(), "test")
+// }
+
+// exercises
 // Write a function that inserts an element into a list only if the element to be inserted
 // is larger than any of the elements currently in the list. Larger can mean either greater
 // than when working with numeric values, or further down in the alphabet, when
