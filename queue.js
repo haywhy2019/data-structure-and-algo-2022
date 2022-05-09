@@ -152,11 +152,20 @@ function checkPalindrone(element) {
   }
 }
 
+console.log(checkPalindrone("word"));
+console.log(checkPalindrone("racecar"));
+
 // Modify the priority queue example from Example 5-5 so that the higher-priority
 // elements have higher numbers rather than lower numbers. Test your implementation
 // with the example in the chapter.
 
+const pp = [
+  { value: 1, pat: "tunde" },
+  { value: 3, pat: "sola" },
+  { value: 5, pat: "bimpe" },
+  { value: 7, pat: "david" },
+];
+
+let pQue = new Queue()
 
 
-console.log(checkPalindrone("word"));
-console.log(checkPalindrone("racecar"));
